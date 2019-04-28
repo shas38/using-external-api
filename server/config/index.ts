@@ -4,15 +4,15 @@ import * as path from "path";
 
 module.exports = {
   development: {
-    sitename: 'Currency Analyser [Development]',
-    data: {
-      currencies: path.join(__dirname, '../data/currency.json'),
-    }
+    sitename: 'Compare Movie Price [Development]',
+    timeout: 4000,
+    baseURL: 'http://webjetapitest.azurewebsites.net/api',
+    cinemaList: ['cinemaworld', 'filmworld'],
   },
   production: {
-    sitename: 'Currency Analyser',
-    data: {
-      currencies: path.join(__dirname, '../data/currency.json'),
-    }
+    sitename: 'Compare Movie Price',
+    timeout: 4000,
+    baseURL: 'http://webjetapitest.azurewebsites.net/api',
+    cinemaList: ['cinemaworld', 'filmworld'],
   },
 }

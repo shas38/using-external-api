@@ -1,14 +1,13 @@
 'use struct';
-// Import necessary libraries
 
+// Parent class for processing the movie API
 export default class ProcessMovies {
   accessToken: string;
   baseURL: string;
   cinemas: Array<string>;
   timeout: number;
   protected _cache: object;
-
-  // Initialise currencies and path
+  // Initialise instance variables
   constructor(
     accessToken = '',
     baseURL = '',
@@ -21,6 +20,8 @@ export default class ProcessMovies {
     this.timeout = timeout;
     this._cache = {};
   }
+
+  // Setter for setting instance variables
   setAccessToken(accessToken: string): any{
     this.accessToken = accessToken;
     return this

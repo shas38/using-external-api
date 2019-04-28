@@ -1,3 +1,4 @@
+// Script for unit testing ProcessMovieDetails class
 'use struct';
 // Import necessary libraries
 import * as chai from 'chai';
@@ -7,7 +8,7 @@ import ProcessMovieDetails from "../../src/services/processMovieDetails"
 
 // Use expect from chai for assertion
 const expect = chai.expect;
-// Fake data for the test
+// Mock data for the test
 const returnData = {
   "Title": "Star Wars: Episode IV - A New Hope",
   "Year": "1977",
@@ -30,11 +31,12 @@ const returnData = {
   "Price": "29.5"
 };
 
-const resu = dotenv.config()
-
-if (resu.error) {
-  console.log(resu.error)
+// Initialise dotenv
+const result = dotenv.config()
+if (result.error) {
+  console.log(result.error)
 }
+// Test ProcessMovieNames class
 describe("Test ProcessMovieNames class", function(){
   // Initialise the unit under test
   const processMovieDetails = new ProcessMovieDetails()
@@ -42,7 +44,7 @@ describe("Test ProcessMovieNames class", function(){
   .setBaseURL('http://webjetapitest.azurewebsites.net/api')
   .SetCinemas(['filmworld'])
   .SetTimeout(1000)
-
+  // Initialise the mock server
   before(function(){
     nock('http://webjetapitest.azurewebsites.net/api')
     .get('/filmworld/movie/fw0076759')
@@ -53,23 +55,20 @@ describe("Test ProcessMovieNames class", function(){
   it('should return a code of 3', async function  () {
 
     // Compare the result
-
     const result = await processMovieDetails.generateMovieDetails({"filmworld": "fw0076759"});
     // console.log(result)
     expect(result['code']).to.be.equal(3)
-
   });
-
+  // Initialise the mock server
   before(function(){
     nock('http://webjetapitest.azurewebsites.net/api')
     .get('/filmworld/movie/fw0076759')
     .reply(200, returnData);
   })
 
-  it('should return the the available movies for filmworld with a code of 0', async function  () {
+  it('should return the the movie price for filmworld with a code of 0', async function  () {
     // Compare the result
     const result = await processMovieDetails.generateMovieDetails({"filmworld": "fw0076759"});
-    // console.log(result)
     expect(result['cinemas']).to.deep.equal(
       {
         "filmworld": {
@@ -77,10 +76,8 @@ describe("Test ProcessMovieNames class", function(){
         }
     })
     expect(result['code']).to.be.equal(0)
-
   });
-
-
+  // Initialise the mock server
   before(function(){
     nock('http://webjetapitest.azurewebsites.net/api')
     .get('/filmworld/movie/fw0076759')
@@ -88,12 +85,10 @@ describe("Test ProcessMovieNames class", function(){
     .reply(200, returnData);
   });
 
-  it('should return a code of 2', async function  () {
+  it('should return a code of 2 and the movie price for filmworld', async function  () {
 
     // Compare the result
-
     const result = await processMovieDetails.generateMovieDetails({"filmworld": "fw0076759"});
-    // console.log(result)
     expect(result['cinemas']).to.deep.equal(
       {
         "filmworld": {
@@ -101,11 +96,6 @@ describe("Test ProcessMovieNames class", function(){
         }
     })
     expect(result['code']).to.be.equal(2)
-
   });
-
-
-
-
 
 });

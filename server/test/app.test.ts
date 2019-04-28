@@ -4,7 +4,7 @@ import * as request from "supertest";
 import * as nock from 'nock';
 import server from "../src/app"
 
-
+// Initialise mock data for the test
 const returnGetfilmworldData = {
   "Movies": [
       {
@@ -80,16 +80,17 @@ const returnPostcinemaworlData = {
 describe("Test all the routes in app.js", function(){
 
   afterEach(function () {
-      server.close(); // Close the imported server after the unit tests are over so that the CI/CD pipeline can continue
+    // Close the imported server after the unit tests are over so that the CI/CD pipeline can continue
+    server.close();
   });
   // Unit test for testing root endpoint
   it("loads the home page", function(done){
-      request(server).get("/")
-      .expect(200)
-      .expect(/Compare Movie Price/)
-      .end(done) // Expect to find "Currency Annalyser" in the webpage and receive a status code of 200"
+    request(server).get("/")
+    .expect(200) // Expect a status of 200
+    .expect(/Compare Movie Price/) // Expect to find 'Compare Movie Price' on the page
+    .end(done)
   })
-
+  // Initialise the mock server
   before(function(){
     nock('http://webjetapitest.azurewebsites.net/api')
     .get('/filmworld/movie/fw0076759')
@@ -100,7 +101,7 @@ describe("Test all the routes in app.js", function(){
     .reply(200, returnPostcinemaworlData);
 
   })
-
+  // Unit test for /api/movie endpoint
   it("returns the best possible buy and sell price for the given post data", function(done){
     request(server).post("/api/movie")
     .send({
@@ -108,9 +109,9 @@ describe("Test all the routes in app.js", function(){
     })// Add arguments to the post body
     .expect(200)
     .expect(/filmworld/)
-    .end(done) // Expect to find "BTC" in the return data and receive a status code of 200"
+    .end(done) // Expect to find "filmworld" in the return data and receive a status code of 200"
   })
-
+  // Initialise the mock server
   before(function(){
     nock('http://webjetapitest.azurewebsites.net/api')
     .get('/filmworld/movies')
@@ -121,12 +122,11 @@ describe("Test all the routes in app.js", function(){
     .reply(200, returnGetcinemaworldData);
 
   })
-
-
+  // Unit test for /api/movies endpoint
   it("returns all the currencies", function(done){
     request(server).get("/api/movies")
     .expect(200)
     .expect(/movies/)
-    .end(done) // Expect to find "ETC" in the return data and receive a status code of 200"
+    .end(done) // Expect to find "movies" in the return data and receive a status code of 200"
   })
 })

@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import Container from 'react-bootstrap/Container'
-// import Row from 'react-bootstrap/Row'
-// import Col from 'react-bootstrap/Col'
 import SelectMovie from './SelectMovie';
 import PriceTable from './PriceTable';
 import Errors from './Errors';
 import './App.css';
-
+// Main class for combining all the components
 class App extends Component {
   state: any
   constructor(props: any){
@@ -22,15 +20,14 @@ class App extends Component {
       loadingPrice: true,
     };
   }
-
+  // Get the movie names after the component mounts
   async componentDidMount () {
     await this.getMovies();
-
   }
 
-  // tryMultipleTimes = async (numTries: number, ) => {
+  // Function for getting movie names
+  // This function does not take any arguments
 
-  // }
   getMovies = async () =>{
     let data: any = {}
     for(let i = 0; i < 3; i++){
@@ -53,10 +50,6 @@ class App extends Component {
       this.getMovieDetails();
 
     }
-
-
-
-
   }
 
   async getMovieDetails () {

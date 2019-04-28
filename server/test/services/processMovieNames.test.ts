@@ -1,13 +1,13 @@
+// Script for unit testing ProcessMovieNames class
 'use struct';
 // Import necessary libraries
 import * as chai from 'chai';
 import * as nock from 'nock';
 import * as dotenv from 'dotenv';
 import ProcessMovieNames from "../../src/services/processMovieNames"
-
 // Use expect from chai for assertion
 const expect = chai.expect;
-// Fake data for the test
+// Mock data for the test
 const returnData = {
   "Movies": [
       {
@@ -20,13 +20,12 @@ const returnData = {
 
   ]
 };
-
-const resu = dotenv.config()
-
-if (resu.error) {
-  console.log(resu.error)
+// Initialise dotenv
+const result = dotenv.config()
+if (result.error) {
+  console.log(result.error)
 }
-
+// Test ProcessMovieNames class
 describe("Test ProcessMovieNames class", function(){
   // Initialise the unit under test
   const processMovieNames = new ProcessMovieNames()
@@ -34,25 +33,21 @@ describe("Test ProcessMovieNames class", function(){
   .setBaseURL('http://webjetapitest.azurewebsites.net/api')
   .SetCinemas(['filmworld'])
   .SetTimeout(1000)
-
+  // Initialise the mock server
   before(function(){
-
     nock('http://webjetapitest.azurewebsites.net/api')
     .get('/filmworld/movies')
-    .socketDelay(2000) // 2 seconds
+    .socketDelay(2000)
     .reply(200, returnData);
   })
 
   it('should return a code of 3', async function  () {
 
     // Compare the result
-
     const result = await processMovieNames.generateMovieList();
-    // console.log(result)
     expect(result['code']).to.be.equal(3)
-
   });
-
+  // Initialise the mock server
   before(function(){
     nock('http://webjetapitest.azurewebsites.net/api')
     .get('/filmworld/movies')
@@ -62,9 +57,7 @@ describe("Test ProcessMovieNames class", function(){
   it('should return the the available movies for filmworld with a code of 0', async function  () {
 
     // Compare the result
-
     const result = await processMovieNames.generateMovieList();
-    // console.log(result)
     expect(result['movies']).to.deep.equal(
       {
         "Star Wars: Episode IV - A New Hope": {
@@ -72,10 +65,9 @@ describe("Test ProcessMovieNames class", function(){
         }
       })
     expect(result['code']).to.be.equal(0)
-
   });
 
-
+  // Initialise the mock server
   before(function(){
     nock('http://webjetapitest.azurewebsites.net/api')
     .get('/filmworld/movies')
@@ -83,12 +75,9 @@ describe("Test ProcessMovieNames class", function(){
     .reply(200, returnData);
   });
 
-  it('should return a code of 2', async function  () {
-
+  it('should return a code of 2 and the the available movies', async function  () {
     // Compare the result
-
     const result = await processMovieNames.generateMovieList();
-    // console.log(result)
     expect(result['movies']).to.deep.equal(
       {
         "Star Wars: Episode IV - A New Hope": {
@@ -98,9 +87,4 @@ describe("Test ProcessMovieNames class", function(){
     expect(result['code']).to.be.equal(2)
 
   });
-
-
-
-
-
 });
