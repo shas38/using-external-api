@@ -13,6 +13,8 @@ The application uses the following technologies:
 
 Create a .env file in the server diorectory and add the following line,
 accessToken='Your x-access-token'
+Similarly you can add this to your environment variable 
+e.g. accessToken='Your x-access-token' pm2 start app.js
 
 
 ```bash
