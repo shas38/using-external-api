@@ -45,7 +45,7 @@ There are three routes:
 - npm run build            - will generate generate .js from the .ts files for production use
 - npm run build:watch      - will generate generate .js from the .ts files for production use and watch for changes
 - npm run dev              - will run the dev server
-- npm start            - will start the production server
+- npm start                - will start the production server
 ```
 
 ### Client
