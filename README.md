@@ -77,8 +77,9 @@ There are three routes:
 ### Client Structure
 
 1. The `client/src/App.tsx` directory contains the root react component for the Frontend.
-2. The `server/src/SelectMovie.tsx` directory contains the functional component for generating the form.
-3. The `server/src/PriceTable.tsx` directory contains the functional component for creating the price tables.
+2. The `client/src/SelectMovie.tsx` directory contains the functional component for generating the form.
+3. The `client/src/PriceTable.tsx` directory contains the functional component for creating the price tables.
+4. The `client/src/Errors.tsx` directory contains the functional component for displaying errors.
 
 ## Development
 

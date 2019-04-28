@@ -24,12 +24,11 @@ class App extends Component {
   async componentDidMount () {
     await this.getMovies();
   }
-
   // Function for getting movie names
   // This function does not take any arguments
-
   getMovies = async () =>{
     let data: any = {}
+    // Try at most three times to get the data from the backend
     for(let i = 0; i < 3; i++){
       data= await fetch('/api/movies');
       data = await data.json();
@@ -37,6 +36,7 @@ class App extends Component {
         break;
       }
     }
+    // If unsuccessful then show error
     if(data['code'] === 3){
       this.setState({
         errorCode: 1,
@@ -45,16 +45,19 @@ class App extends Component {
         loadingMovies: false
       })
     }
+    // If successfull then then change the state and get movie details
     else{
       await this.setState({showErrors: false, errorCode: 0, loadingMovies: false, movies: data['movies'], movieSelected: Object.keys(data['movies'])[0]})
       this.getMovieDetails();
-
     }
   }
-
+  // Function for getting movie price
+  // This function does not take any arguments
   async getMovieDetails () {
+    // Set loading to true
     await this.setState({loadingPrice: true})
     let data: any
+    // Try at most three times to get the data from the backend
     for(let i = 0; i < 3; i++){
       data = await fetch('/api/movie', {
         method: "POST",
@@ -66,6 +69,7 @@ class App extends Component {
         break;
       }
     }
+    // If unsuccessful then show error
     if(data['code'] === 3){
       if(data['code'] === 3){
         this.setState({
@@ -74,46 +78,44 @@ class App extends Component {
           errorMessage: 'Could not retrive price'
         })
       }
-    }else{
+    }
+    // If successfull then then change the state
+    else{
       this.setState({showErrors: false, loadingPrice: false, movieDetails: data['cinemas']})
     }
-
   }
-
+  // Function for updating the state with the selected movie
   newMovieSelected = async (e: any)=>{
     console.log(e.target.value )
     await this.setState({ movieSelected: e.target.value })
     this.getMovieDetails();
   }
-
+  // Function for clearing errors
   clearError = (e: any) => {
     this.setState({showErrors: false})
   }
-
+  // Function for trying to fetch data from the client again
   tryAgain = async (e: any) => {
-
     let errorCode = this.state.errorCode
     if(errorCode == 1)
       await this.getMovies();
     else if(errorCode == 2)
       await this.getMovieDetails();
-
   }
 
   render() {
     return (
-
       <div className="App">
-          <header className="App-header">
+        <header className="App-header">
           <Container>
-            { this.state.showErrors ?
+            { this.state.showErrors ? // If showErrors is true then render only the error component
             <Errors
               errorMessage={this.state.errorMessage}
               errorCode={this.state.errorCode}
               clearError={this.clearError}
               tryAgain={this.tryAgain}
-            /> :
-            this.state.loadingMovies?<p>Loading</p>:
+            /> : // If showErrors is false then diplay the other components
+            this.state.loadingMovies?<p>Loading</p>: // Show loading message while fetching movies
               <React.Fragment>
                 <Container>
                     <h1 style={{margin: '50px'}}>Compare Movie Price</h1>
@@ -125,7 +127,7 @@ class App extends Component {
                     />
                 </Container>
                 <Container>
-                  {this.state.loadingPrice?<p>Getting Price</p>:
+                  {this.state.loadingPrice?<p>Getting Price</p>:// Show 'Getting Price' message while fetching price
                     <PriceTable
                       movieDetails={this.state.movieDetails}
                     />
@@ -134,11 +136,7 @@ class App extends Component {
               </React.Fragment>
             }
           </Container>
-
-
         </header>
-
-
       </div>
     );
   }

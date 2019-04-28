@@ -2,8 +2,9 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table'
 
-// Functional component for dispaying the profit data
+// Functional component for dispaying the movie price
 const PriceTable = (props: any) => {
+  // Get all the cinema names
   const cinemas = Object.keys(props.movieDetails);
   const movieDetails = props.movieDetails;
   return (
@@ -13,7 +14,6 @@ const PriceTable = (props: any) => {
           <tr>
             <th colSpan={2}><b>Price</b></th>
           </tr>
-
             {cinemas.map((cinema, i) =>
                 <tr key = {i}>
                   <td>{cinema.toUpperCase()}</td>

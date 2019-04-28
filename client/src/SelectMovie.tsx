@@ -2,7 +2,7 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
-// Functional component for dispaying the form
+// Functional component for dispaying the movie names
 const SelectMovie = (props: any) => {
 
   return (
