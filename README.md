@@ -25,8 +25,8 @@ The server runs on port `5000`.
 
 There are three routes:
 ```
-- http://localhost:5000/                - homepage
-- http://localhost:5000//api/movies  - accepts GET requests for retrieving all the movie names
+- http://localhost:5000/              - homepage
+- http://localhost:5000//api/movies   - accepts GET requests for retrieving all the movie names
 - http://localhost:5000/api/movie     - accepts POST requests with cinema names as the keys and the movie id's as the values
                                           e.g. {
                                               "cinemaworld": "cw0080684",
