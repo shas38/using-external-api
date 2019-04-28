@@ -12,7 +12,7 @@ The application uses the following technologies:
 ## Getting Started
 
 Create a .env file in the server diorectory and add the following line,
-accessToken=<Your x-access-token>
+accessToken='Your x-access-token'
 
 
 ```bash
