@@ -7,7 +7,7 @@ The application uses the following technologies:
 - Frontend: ReactJs 
 - Type Checking: Typescript
 
-<img src="images/using-external-api.PNG.PNG">
+<img src="images/using-external-api.PNG">
 
 ## Getting Started
 
