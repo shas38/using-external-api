@@ -27,6 +27,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../public')));
 
 
+
 // If dev env then set pretty to true
 if (app.get('env') === 'development') {
   app.locals.pretty = true;

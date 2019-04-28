@@ -2,6 +2,7 @@
 // Import necessary libraries
 import * as chai from 'chai';
 import * as nock from 'nock';
+import * as dotenv from 'dotenv';
 import ProcessMovieNames from "../../src/services/processMovieNames"
 
 // Use expect from chai for assertion
@@ -19,10 +20,17 @@ const returnData = {
 
   ]
 };
+
+const resu = dotenv.config()
+
+if (resu.error) {
+  console.log(resu.error)
+}
+
 describe("Test ProcessMovieNames class", function(){
   // Initialise the unit under test
   const processMovieNames = new ProcessMovieNames()
-  .setAccessToken('sjd1HfkjU83ksdsm3802k')
+  .setAccessToken(process.env.accessToken)
   .setBaseURL('http://webjetapitest.azurewebsites.net/api')
   .SetCinemas(['filmworld'])
   .SetTimeout(1000)

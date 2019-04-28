@@ -2,6 +2,7 @@
 "use strict";
 // Import necessary libraries
 import * as express from "express";
+import * as dotenv from 'dotenv';
 import ProcessMovieNames from '../services/processMovieNames';
 // Use the express router function to create a new route
 const router = express.Router();
@@ -19,14 +20,21 @@ const timeout = 2000;
     }
   }
 */
+// const resu = dotenv.config()
+
+// if (resu.error) {
+//   console.log(resu.error)
+// }
+
 const processMovieNames = new ProcessMovieNames()
-.setAccessToken('sjd1HfkjU83ksdsm3802k')
+.setAccessToken(process.env.accessToken)
 .setBaseURL('http://webjetapitest.azurewebsites.net/api')
 .SetCinemas(['cinemaworld', 'filmworld'])
 .SetTimeout(timeout)
 
 router.get('/', async (req, res, next) => {
   try{
+    console.log(process.env.accessToken)
     const result = await processMovieNames.generateMovieList();
     // console.log(result)
     res.status(200).json(result);

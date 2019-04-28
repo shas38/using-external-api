@@ -57,7 +57,7 @@ var timeout = 2000;
   }
 */
 var processMovieDetails = new processMovieDetails_1.default()
-    .setAccessToken('sjd1HfkjU83ksdsm3802k')
+    .setAccessToken(process.env.accessToken)
     .setBaseURL('http://webjetapitest.azurewebsites.net/api')
     .SetCinemas(['cinemaworld', 'filmworld'])
     .SetTimeout(timeout);

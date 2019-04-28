@@ -1,5 +1,5 @@
 # using-external-api
-This projects demonstrates how to effectively use external API's
+This project demonstrates how to use unreliable and slow external API effectively. The project utilises external API to fetch movie names and prices for different cinemas. Users can then use the front end portal to select different movies and visualise different prices from various cinemas.
 
 
 The application uses the following technologies:
@@ -7,9 +7,13 @@ The application uses the following technologies:
 - Frontend: ReactJs 
 - Type Checking: Typescript
 
-<img src="images/currencyAnalyser.PNG">
+<img src="images/using-external-api.PNG.PNG">
 
 ## Getting Started
+
+Create a .env file in the server diorectory and add the following line,
+accessToken=<Your x-access-token>
+
 
 ```bash
 cd ./server
@@ -22,9 +26,12 @@ The server runs on port `5000`.
 There are three routes:
 ```
 - http://localhost:5000/                - homepage
-- http://localhost:5000/api/currencies  - accepts GET requests for retrieving all the unique currencies
-- http://localhost:5000/api/profits     - accepts POST requests with fromDate, toDate and a list of currencies as post data
-                                          e.g. {fromDate: '20180507', fromDate: '20180507', currencySelected: ['BTC', 'ETC']}
+- http://localhost:5000//api/movies  - accepts GET requests for retrieving all the movie names
+- http://localhost:5000/api/movie     - accepts POST requests with cinema names as the keys and the movie id's as the values
+                                          e.g. {
+                                              "cinemaworld": "cw0080684",
+                                              "filmworld": "fw0080684"
+                                            }
 ```
 
 ## Scripts
@@ -70,8 +77,8 @@ There are three routes:
 ### Client Structure
 
 1. The `client/src/App.tsx` directory contains the root react component for the Frontend.
-2. The `server/src/dateForm.tsx` directory contains the functional component for generating the form.
-3. The `server/src/profitTable.tsx` directory contains the functional component for creating the profit tables.
+2. The `server/src/SelectMovie.tsx` directory contains the functional component for generating the form.
+3. The `server/src/PriceTable.tsx` directory contains the functional component for creating the price tables.
 
 ## Development
 
